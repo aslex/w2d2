@@ -111,7 +111,44 @@ function renderButtons() {
 
 // Iteration 4: change the HTML of `<aside class="panel price">`
 function renderPrice() {
-  //
+  const ul = document.querySelector(".price ul");
+
+  //   ul.innerHTML = "";
+
+  ul.querySelectorAll("li").forEach(function(item) {
+    //parent.removeChild(elementToRemove)
+    ul.removeChild(item);
+  });
+
+  let totalPrice = basePrice;
+
+  for (const key in ingredients) {
+    if (state[key] === true) {
+      const ingredientPrice = ingredients[key].price;
+
+      totalPrice += ingredientPrice;
+
+      const li = document.createElement("li");
+      li.innerText =
+        "$" + ingredientPrice + " " + ingredients[key].name.toLowerCase();
+      ul.appendChild(li);
+
+      //   ul.innerHTML +=
+      //     "<li>$" +
+      //     ingredientPrice +
+      //     " " +
+      //     ingredients[key].name.toLowerCase() +
+      //     "</li>";
+    }
+  }
+
+  document.getElementsByTagName("strong")[0].innerText = "$" + totalPrice;
+
+  //   removes the third li child of the ul in the element with class `controls`
+  //   const parent = document.querySelector(".controls > ul ");
+  //   const child = parent.getElementsByTagName("li")[2];
+
+  //   parent.removeChild(child);
 }
 
 renderEverything();
